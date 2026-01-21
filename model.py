@@ -40,4 +40,3 @@ if __name__ == "__main__":
     net = MNIST_CNN()
     print(net)
     print(f"Parameters: {sum(p.nelement() for p in net.parameters())}")
-
