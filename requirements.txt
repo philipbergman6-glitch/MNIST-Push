@@ -1,4 +1,8 @@
 torch
 torchvision
 matplotlib
-
+numpy
+streamlit-drawable-canvas
+qrcode[pil]
+opencv-python-headless
+pillow
