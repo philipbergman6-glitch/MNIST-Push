@@ -8,6 +8,7 @@ from io import BytesIO
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image
 import cv2
+import base64
 
 # ============================================================
 # PAGE CONFIG
@@ -228,12 +229,9 @@ accuracy = (correct / total) * 100
 # HEADER
 # ============================================================
 st.markdown("""
-<h1 style='text-align: center; font-size: 3.5rem; color: #5F7C57;'>
+<h1 style='text-align: center; font-size: 7rem; color: #5F7C57;'>
     Can a Neural Network Read Your Handwriting?
 </h1>
-<p style='text-align: center; font-size: 1.6rem; color: #7C9473;'>
-    A CNN trained on 60,000 digits - 99% accuracy
-</p>
 """, unsafe_allow_html=True)
 st.divider()
 
@@ -295,11 +293,11 @@ with col1:
     st.caption(f"Image #{index} from test set")
 
 with col2:
-    st.markdown("**Confidence Distribution**")
+    st.markdown("<p style='font-size: 1rem;'><b>Confidence Distribution</b></p>", unsafe_allow_html=True)
     st.caption("🟢 Highest | 🟠 2nd Highest | 🔵 3rd Highest")
 
     # Horizontal probability bars with color-coded top 3
-    fig_bar, ax_bar = plt.subplots(figsize=(6, 5), facecolor='#F5F7F2')
+    fig_bar, ax_bar = plt.subplots(figsize=(5, 4), facecolor='#F5F7F2')
 
     # Find top 3 predictions
     top3_indices = probabilities.argsort(descending=True)[:3].numpy()
@@ -685,23 +683,16 @@ def generate_qr_code(url):
     buffer.seek(0)
     return buffer
 
-col1, col2, col3 = st.columns([1, 1, 1])
-with col2:
-    st.markdown("""
-    <div style='text-align: center;'>
-        <h3 style='color: #5F7C57;'>Scan & Play!</h3>
-        <p style='font-size: 1.2rem;'>Scan the QR code and try the drawing game on your phone</p>
-    </div>
-    """, unsafe_allow_html=True)
+qr_buffer = generate_qr_code(APP_URL)
+qr_base64 = base64.b64encode(qr_buffer.getvalue()).decode()
 
-    qr_buffer = generate_qr_code(APP_URL)
-    st.image(qr_buffer, width=250, use_container_width=False)
-
-    st.markdown(f"""
-    <p style='text-align: center; font-size: 1rem; color: #7C9473;'>
-        Or visit: <a href="{APP_URL}" target="_blank" style="color: #5F7C57;">{APP_URL}</a>
-    </p>
-    """, unsafe_allow_html=True)
+st.markdown(f"""
+<div style='text-align: center;'>
+    <h3 style='color: #5F7C57;'>Scan & Play!</h3>
+    <p style='font-size: 1.2rem;'>Scan the QR code and try the drawing game on your phone</p>
+    <img src='data:image/png;base64,{qr_base64}' width='250' style='margin-top: 1rem;'>
+</div>
+""", unsafe_allow_html=True)
 
 # ============================================================
 # FOOTER
