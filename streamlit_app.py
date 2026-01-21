@@ -666,7 +666,7 @@ st.divider()
 
 # Generate QR code for the app URL
 # UPDATE THIS URL to your deployed Streamlit app URL
-APP_URL = "https://your-app-name.streamlit.app"  # <-- Change this to your actual URL
+APP_URL = "https://mnist-push-g8ufuhpnd8bfjcnpqtdnnz.streamlit.app"
 
 @st.cache_data
 def generate_qr_code(url):
