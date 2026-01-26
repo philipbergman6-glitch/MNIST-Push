@@ -229,7 +229,7 @@ accuracy = (correct / total) * 100
 # HEADER
 # ============================================================
 st.markdown("""
-<h1 style='text-align: center; font-size: 10rem; color: #5F7C57;'>
+<h1 style='text-align: center; font-size: 18rem; color: #5F7C57;'>
     Welcome to my App.py-
 </h1>
 """, unsafe_allow_html=True)
