@@ -14,7 +14,7 @@ import base64
 # PAGE CONFIG
 # ============================================================
 st.set_page_config(
-    page_title="The Neural House: Place Your Bets",
+    page_title="Welcome to my App.py-",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -230,7 +230,7 @@ accuracy = (correct / total) * 100
 # ============================================================
 st.markdown("""
 <h1 style='text-align: center; font-size: 7rem; color: #5F7C57;'>
-    The Neural House: Place Your Bets
+    Welcome to my App.py-
 </h1>
 """, unsafe_allow_html=True)
 st.divider()
