@@ -188,20 +188,33 @@ st.markdown("""
 # LOAD MODEL & DATA
 # ============================================================
 from model import MNIST_CNN
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 @st.cache_resource
 def load_model():
-    model = MNIST_CNN()
-    model.load_state_dict(torch.load('my_mnist_brain_CNN.pt', map_location='cpu'))
-    model.eval()
-    return model
+    try:
+        model = MNIST_CNN()
+        model.load_state_dict(torch.load('my_mnist_brain_CNN.pt', map_location='cpu', weights_only=True))
+        model.eval()
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
 
 @st.cache_data
 def load_data():
-    return datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+    try:
+        return datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+    except Exception as e:
+        st.error(f"Error loading data: {e}")
+        return None
 
 model = load_model()
 test_data = load_data()
+
+if model is None or test_data is None:
+    st.stop()
 
 # ============================================================
 # CALCULATE ACCURACY
