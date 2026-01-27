@@ -2,7 +2,7 @@ torch
 torchvision
 matplotlib
 numpy
-streamlit-drawable-canvas==0.9.3
+streamlit-drawable-canvas
 qrcode[pil]
 opencv-python-headless
 pillow
